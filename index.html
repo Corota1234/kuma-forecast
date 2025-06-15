@@ -245,7 +245,7 @@
             header: true,
             skipEmptyLines: true,
             complete: function(results) {
-              data = results.data;
+              data = results.data.filter(row => row.date === dateStr);
               const allHeaders = results.meta.fields;
               rawHeaders = allHeaders.filter(h => !['id', 'lat', 'lng', 'date'].includes(h));
               times = rawHeaders.map(h => formatTimeLabel(parseInt(h)));
