@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>くま予報</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', 'Noto Sans JP', sans-serif; }
+    body { margin: 0; background-color: #f7f8fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    header {
+      background: #ffffffdd;
+      backdrop-filter: blur(8px);
+      padding: 1rem 1.5rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+    nav a {
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    #controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1rem;
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 64px;
+      z-index: 999;
+    }
+    #dateTimeSelect {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #selectedDateText {
+      font-size: 0.95rem;
+      color: #444;
+    }
+    select {
+      font-size: 1rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      min-width: 120px;
+    }
+    #map { height: calc(100vh - 300px); position: relative; }
+    #legend-and-note {
+      padding: 1rem 1.5rem;
+      background: #fff;
+      font-size: 0.95rem;
+      color: #555;
+      border-top: 1px solid #ddd;
+    }
+    .legend-item {
+      margin-bottom: 0.4rem;
+    }
+    .legend-item span {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      vertical-align: middle;
+      border-radius: 4px;
+    }
+    footer {
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      text-align: right;
+      background: #f4f4f4;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>🐻 くま予報</span>
+    <nav>
+      <a href="#map">MAP</a>
+      <a href="#legend-and-note">注意</a>
+    </nav>
+  </header>
+
+  <div id="controls">
+    <div id="dateTimeSelect">
+      <label for="dateSelect">日付:</label>
+      <select id="dateSelect"></select>
+      <label for="timeSelect">時刻:</label>
+      <select id="timeSelect"></select>
+    </div>
+    <div id="selectedDateText"></div>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="legend-and-note">
+    <div class="legend-item"><span style="background: rgba(255,0,0,0.6);"></span>高リスク</div>
+    <div class="legend-item"><span style="background: rgba(255,255,0,0.6);"></span>中リスク</div>
+    <div style="margin-top: 1rem;">
+      <strong>熊に関する注意</strong><br>
+      ・早朝・夕方の山林や藪には近づかないようにしましょう<br>
+      ・鈴・ラジオなど音の出るものを携帯し、存在を知らせましょう<br>
+      ・生ゴミや果物など、熊を引き寄せるものを屋外に置かないようにしましょう<br>
+      ・熊を見かけた場合は速やかにその場を離れ、自治体・警察へ連絡を<br>
+      ・<a href="https://www.pref.akita.lg.jp/pages/archive/23295" target="_blank">秋田県：ツキノワグマ出没対応マニュアル</a>
+    </div>
+    <div style="margin-top: 1rem; font-size: 0.9rem;">
+      <strong>⚠ 本システムのご利用にあたって</strong><br>
+      ・このシステムはAIによる予測に基づくもので、出没を保証するものではありません<br>
+      ・予測情報の利用による損害について責任を負いかねます<br>
+      ・最終的な判断は各自で行い、現地情報や自治体の指示を優先してください
+    </div>
+    <div style="margin-top: 1rem; font-size: 0.9rem;">
+      <strong>運営組織</strong><br>
+      本サービスは <strong>Corota AI Lab.</strong> によって運営されています。<br>
+      最新情報は <a href="https://x.com/CorotaAiLab" target="_blank">X（旧Twitter） @CorotaAiLab</a> をご確認ください。
+    </div>
+  </div>
+
+  <footer>
+    <strong>運営組織：</strong>Corota AI Lab.
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+    const meshSizeLat = 0.00525;
+    const meshSizeLng = 0.00785;
+
+    const map = L.map("map", { zoomControl: false }).setView([36.5, 137.0], 8);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+
+    let data = [];
+    let times = [];
+    let rawHeaders = [];
+    let layerGroup = L.layerGroup().addTo(map);
+
+    function getColor(risk) {
+      const t = Math.min(Math.max((risk - 0.80) / 0.20, 0), 1);
+      const r = 255;
+      const g = Math.round(255 * (1 - t));
+      return `rgba(${r}, ${g}, 0, 0.6)`;
+    }
+
+    function formatTimeLabel(hourInt) {
+      if (isNaN(hourInt)) return "--:--";
+      return String(hourInt).padStart(2, '0') + ":00";
+    }
+
+    function drawPolygons(timeIndex) {
+      const rawKey = rawHeaders[timeIndex];
+      if (!rawKey) return;
+      layerGroup.clearLayers();
+
+      data.forEach(row => {
+        const lat = parseFloat(row.lat);
+        const lng = parseFloat(row.lng);
+        const risk = parseFloat(row[rawKey] || 0);
+        if (risk < 0.60) return;
+
+        const halfLat = (meshSizeLat * 0.8) / 2;
+        const halfLng = (meshSizeLng * 0.8) / 2;
+        const bounds = [[lat - halfLat, lng - halfLng], [lat + halfLat, lng + halfLng]];
+
+        const rect = L.rectangle(bounds, {
+          color: 'none', weight: 0, fillColor: getColor(risk), fillOpacity: 1
+        }).bindPopup(`${risk >= 0.95 ? '高リスク' : '中リスク'}`);
+        rect.addTo(layerGroup);
+      });
+    }
+
+    document.getElementById("timeSelect").addEventListener("change", (e) => {
+      const timeIndex = parseInt(e.target.value);
+      if (!isNaN(timeIndex)) drawPolygons(timeIndex);
+    });
+
+    function getTodayDateStr(offset = 0) {
+      const today = new Date();
+      today.setDate(today.getDate() + offset);
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      return `${yyyy}${mm}${dd}`;
+    }
+
+    function getReadableDateStr(offset = 0) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
+      return date.toLocaleDateString('ja-JP', options);
+    }
+
+    function updateSelectedDateText(offset) {
+      document.getElementById("selectedDateText").textContent = `表示日：${getReadableDateStr(offset)}`;
+    }
+
+    function loadCsvForDate(dateStr, offset = 0) {
+      const filename = `risk_data.csv?d=${dateStr}&v=${Date.now()}`;
+      fetch(filename)
+        .then(response => response.text())
+        .then(csvText => {
+          Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+              data = results.data;
+              const allHeaders = results.meta.fields;
+              rawHeaders = allHeaders.filter(h => !['id', 'lat', 'lng', 'date'].includes(h));
+              times = rawHeaders.map(h => formatTimeLabel(parseInt(h)));
+
+              const select = document.getElementById("timeSelect");
+              select.innerHTML = "";
+              times.forEach((label, i) => {
+                const option = document.createElement("option");
+                option.value = i.toString();
+                option.textContent = label;
+                select.appendChild(option);
+              });
+
+              const currentHour = new Date().getHours();
+              select.value = currentHour.toString();
+              drawPolygons(parseInt(select.value));
+              updateSelectedDateText(offset);
+            }
+          });
+        });
+    }
+
+    const dateSelect = document.getElementById("dateSelect");
+    const todayStr = getTodayDateStr();
+    const tomorrowStr = getTodayDateStr(1);
+
+    dateSelect.innerHTML = `
+      <option value="${todayStr}" data-offset="0">今日</option>
+      <option value="${tomorrowStr}" data-offset="1">明日</option>
+    `;
+
+    dateSelect.addEventListener("change", (e) => {
+      const offset = parseInt(e.target.selectedOptions[0].dataset.offset);
+      loadCsvForDate(e.target.value, offset);
+    });
+
+    loadCsvForDate(todayStr, 0);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        L.marker([lat, lng], { title: "あなたの現在地" })
+          .addTo(map)
+          .bindPopup("📍 あなたの現在地").openPopup();
+        map.setView([lat, lng], 11);
+      });
+    }
+  </script>
+</body>
+</html>
