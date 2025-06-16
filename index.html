@@ -134,7 +134,7 @@
 
   <div id="legend-and-note">
     <div class="legend-item"><span style="background: rgba(255,0,0,0.6);"></span>高リスク</div>
-    <div class="legend-item"><span style="background: rgba(255,255,0,0.6);"></span>中リスク</div>
+    <!-- <div class="legend-item"><span style="background: rgba(255,255,0,0.6);"></span>中リスク</div>-->
     <div style="margin-top: 1rem;">
       <strong>熊に関する注意</strong><br>
       ・早朝・夕方の山林や藪には近づかないようにしましょう<br>
@@ -166,7 +166,7 @@
     const meshSizeLat = 0.00525;
     const meshSizeLng = 0.00785;
 
-    const map = L.map("map", { zoomControl: false }).setView([36.5, 137.0], 8);
+    const map = L.map("map", { zoomControl: false }).setView([39.72, 140.10], 9);
     L.control.zoom({ position: 'topright' }).addTo(map);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors"
@@ -198,7 +198,7 @@
         const lat = parseFloat(row.lat);
         const lng = parseFloat(row.lng);
         const risk = parseFloat(row[rawKey] || 0);
-        if (risk < 0.60) return;
+        if (risk < 0.95) return;
 
         const halfLat = (meshSizeLat * 0.8) / 2;
         const halfLng = (meshSizeLng * 0.8) / 2;
