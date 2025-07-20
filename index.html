@@ -2,176 +2,256 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>くま予報｜秋田県の熊出没リスクをAIで予測・マップ表示</title>
-  <meta name="description" content="くま予報は秋田県内での熊の出没リスクをAIで予測し、地図上にわかりやすく表示する無料サービスです。登山や農作業の前に、最新のリスクを確認しましょう。">
+  <title>くま予報｜秋田・山形 熊出没リスクAIマップ</title>
+  <link rel="icon" type="image/png" href="favicon_2.png">
+  <meta name="description" content="くま予報は秋田県・山形県の熊出没リスクをAIで予測し、地図上に分かりやすく表示する無料サービスです。登山や農作業の前に、最新のリスクをご確認ください。">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow">
   <meta name="author" content="Corota AI Lab.">
-  <meta property="og:title" content="くま予報｜秋田県の熊出没リスク予測マップ" />
-  <meta property="og:description" content="秋田県の熊出没リスクをAIで予測。無料で使えるマップ表示サービス。外出時にチェック。" />
+  <meta property="og:title" content="くま予報｜秋田・山形 熊出没リスクAIマップ" />
+  <meta property="og:description" content="秋田・山形の熊出没リスクをAIで予測。無料で使えるマップ表示サービス。外出前に要チェック。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://corota1234.github.io/kuma-forecast/" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', 'Noto Sans JP', sans-serif; }
-    body { margin: 0; background-color: #f7f8fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { margin: 0; background: #f8f9fa; color: #222; min-height: 100vh; }
+
     header {
-      background: #ffffffdd;
-      backdrop-filter: blur(8px);
-      padding: 1rem 1.5rem;
-      font-size: 1.8rem;
+      background: #fff;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.7rem;
       font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      display: flex; justify-content: space-between; align-items: center;
       z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
-    nav {
-      display: flex;
-      gap: 1rem;
-      font-size: 1rem;
+    .title {
+      display: flex; align-items: center; min-width: 0;
     }
-    nav a {
-      color: #007acc;
-      text-decoration: none;
-      font-weight: bold;
+    .logo-img {
+      width: 36px; height: 36px; vertical-align: middle; margin-right: 0.4em;
+      flex-shrink: 0;
     }
-    nav a:hover {
-      text-decoration: underline;
+    .title-long { display: inline; }
+    .title-short { display: none; }
+
+    nav { display: flex; gap: 1rem; font-size: 1rem; }
+    nav a { color: #007acc; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+
+    #map { 
+      flex: 0 0 auto;
+      height: 75vh;
+      min-height: 480px;
+      margin: 0 0 1rem 0; 
+      border-top: 1px solid #ddd; 
+      border-bottom: 1px solid #ddd;
+      z-index: 0;
+      width: 100vw;
+      max-width: 100vw;
     }
+
+    /* ▼ 共通幅クラス */
+    .container {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 1.2rem auto;
+      box-sizing: border-box;
+    }
+
     #controls {
       display: flex;
-      flex-direction: column;
+      gap: 1.2rem;
       align-items: center;
-      gap: 0.6rem;
-      padding: 1rem;
-      background: #ffffffcc;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 64px;
-      z-index: 999;
+      justify-content: center;
+      padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+      font-size: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
     }
-    #dateTimeSelect {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    #selectedDateText {
-      font-size: 0.95rem;
-      color: #444;
-    }
+    #controls label { margin-right: 0.2rem; }
     select {
       font-size: 1rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background-color: #fff;
-      min-width: 120px;
-    }
-    #map { height: calc(100vh - 300px); position: relative; }
-    #legend-and-note {
-      padding: 1rem 1.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      border: 1px solid #bbb;
       background: #fff;
-      font-size: 0.95rem;
-      color: #555;
-      border-top: 1px solid #ddd;
+      min-width: 180px;
+    }
+    #legend {
+      background: #fff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
     }
     .legend-item {
-      margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.5em;
+      font-size: 1rem;
     }
     .legend-item span {
       display: inline-block;
-      width: 16px;
-      height: 16px;
-      margin-right: 8px;
-      vertical-align: middle;
+      width: 18px;
+      height: 18px;
       border-radius: 4px;
+      margin-right: 2px;
     }
-    footer {
-      padding: 1rem 1.5rem;
-      font-size: 0.9rem;
-      text-align: right;
-      background: #f4f4f4;
+    #note {
+      background: #fffbe8;
+      color: #222;
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(200,180,0,0.07);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 0.7rem;
+    }
+    #note strong {
+      color: #d22;
+      font-size: 1.08em;
+    }
+    #manual-link {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2em;
+    }
+    #manual-link a {
+      text-decoration: underline;
+      color: #1976d2;
+      margin-right: 1em;
+    }
+    #caution {
+      background: #fff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 9px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      font-size: 0.97rem;
       color: #666;
     }
+    footer {
+      padding: 1.2rem 1.2rem 1.7rem 1.2rem;
+      font-size: 0.93rem;
+      text-align: right;
+      background: #f4f4f4;
+      color: #777;
+    }
+    @media (max-width: 700px) {
+      #map {
+        height: 80vh;
+        min-height: 80vh;
+        margin: 0 0 1rem 0;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      .container { max-width: 99vw; font-size: 1rem; }
+      header { font-size: 1.1rem; padding: 0.5rem 0.7rem; }
+      .logo-img { width: 28px !important; height: 28px !important; margin-right: 0.2em !important;}
+      .title {
+        font-size: 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70vw;
+        min-width: 0;
+      }
+      .title-long { display: none; }
+      .title-short { display: inline; }
+      nav { gap: 0.5em; font-size: 0.97em; }
+      select { min-width: 120px;}
+      #note, #caution {
+        padding: 0.7rem 0.7rem;
+        font-size: 0.89rem;
+        line-height: 1.5;
+        border-radius: 8px;
+        margin: 0.6rem auto;
+        max-width: 99vw;
+      }
+      #note strong {
+        font-size: 1em;
+        display: block;
+        margin-bottom: 0.1em;
+      }
+      #manual-link {
+        display: block;
+        margin-top: 0.5em;
+        gap: 0.4em;
+      }
+      #manual-link a {
+        display: block;
+        margin-bottom: 0.2em;
+        font-size: 0.98em;
+        margin-right: 0;
+      }
+    }
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-10YPM4TSZ2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-10YPM4TSZ2');
-  </script>
 </head>
 <body>
   <header>
-    <span>🐻 くま予報</span>
+    <span class="title">
+      <img src="favicon_2.png" alt="くまロゴ" class="logo-img" width="36" height="36">
+      <span class="title-long">くま予報｜秋田・山形 熊出没リスクAIマップ</span>
+      <span class="title-short">くま予報AIマップ</span>
+    </span>
     <nav>
       <a href="#map">MAP</a>
-      <a href="#legend-and-note">注意</a>
+      <a href="#note">注意</a>
     </nav>
   </header>
 
-  <div id="controls">
-    <div id="dateTimeSelect">
-      <label for="dateSelect">日付:</label>
-      <select id="dateSelect"></select>
-      <label for="timeSelect">時刻:</label>
-      <select id="timeSelect"></select>
-    </div>
-    <div id="selectedDateText"></div>
-  </div>
-
   <div id="map"></div>
 
-  <div id="legend-and-note">
-    <div id="legend-and-note">
-    <div class="legend-item">
-      <span style="background: rgba(255,0,0,0.6);"></span>厳重警戒
-    </div>
-    <div class="legend-item">
-      <span style="background: rgba(255,165,0,0.6);"></span>警戒
-    </div>
-    <div class="legend-item">
-      <span style="background: rgba(255,255,0,0.6);"></span>注意
-    </div>
+  <div id="controls" class="container">
+    <select id="dateSelect"></select>
+    <select id="timeSelect"></select>
+  </div>
 
+  <div id="legend" class="container">
+    <div class="legend-item">
+      <span style="background: rgba(255,0,0,0.7);"></span>危険
+    </div>
+    <div class="legend-item">
+      <span style="background: rgba(255,165,0,0.7);"></span>警戒
+    </div>
+    <div class="legend-item">
+      <span style="background: rgba(255,255,0,0.7);"></span>注意
+    </div>
+  </div>
 
-    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
-      ※地図上の色は黄色から赤色のグラデーションで表示されており、<strong>赤に近づくほどリスクが高い</strong>ことを示しています。
+  <div id="note" class="container">
+    <strong>熊に遭遇しないためのポイント</strong>
+    <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
+      <li>早朝・夕方の山林や藪には近づかない</li>
+      <li>鈴・ラジオなど音を出し、熊に人の存在を知らせる</li>
+      <li>生ゴミや果物など、熊を誘引する物を屋外に放置しない</li>
+      <li>熊を見かけたら速やかにその場を離れ、自治体または警察へ通報</li>
+    </ul>
+    <div id="manual-link">
+      <a href="https://www.pref.akita.lg.jp/pages/archive/23295" target="_blank">秋田県：ツキノワグマ出没対応マニュアル</a>
+      <a href="https://www.pref.yamagata.jp/050011/kurashi/shizen/seibutsu/about_kuma/kuma_yamagata_top.html" target="_blank">山形県：ツキノワグマ出没・対応情報</a>
     </div>
-    <!-- <div class="legend-item"><span style="background: rgba(255,255,0,0.6);"></span>中リスク</div>-->
-    <div style="margin-top: 1rem;">
-      <strong>熊に関する注意</strong><br>
-      ・早朝・夕方の山林や藪には近づかないようにしましょう<br>
-      ・鈴・ラジオなど音の出るものを携帯し、存在を知らせましょう<br>
-      ・生ゴミや果物など、熊を引き寄せるものを屋外に置かないようにしましょう<br>
-      ・熊を見かけた場合は速やかにその場を離れ、自治体・警察へ連絡を<br>
-      ・<a href="https://www.pref.akita.lg.jp/pages/archive/23295" target="_blank">秋田県：ツキノワグマ出没対応マニュアル</a>
-    </div>
-    <div style="margin-top: 1rem; font-size: 0.9rem;">
-      <strong>⚠ 本システムのご利用にあたって</strong><br>
-      ・このシステムはAIによる予測に基づくもので、出没を保証するものではありません<br>
-      ・予測情報の利用による損害について責任を負いかねます<br>
-      ・最終的な判断は各自で行い、現地情報や自治体の指示を優先してください
-    </div>
-    <div style="margin-top: 1rem; font-size: 0.9rem;">
-      <strong>運営組織</strong><br>
-      本サービスは <strong>Corota AI Lab.</strong> によって運営されています。<br>
-      最新情報は <a href="https://x.com/CorotaAiLab" target="_blank">X（旧Twitter） @CorotaAiLab</a> をご確認ください。
-    </div>
+  </div>
+
+  <div id="caution" class="container">
+    <strong>⚠ ご利用にあたって</strong>
+    <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
+      <li>本システムはAI予測情報であり、熊出没を保証するものではありません。</li>
+      <li>ご利用による損害等について一切責任を負いかねます。</li>
+      <li>現地や自治体発表の情報を必ず優先してください。</li>
+    </ul>
   </div>
 
   <footer>
-    <strong>運営組織：</strong>Corota AI Lab.
+    <strong>運営：</strong>Corota AI Lab.　
+    <a href="https://x.com/CorotaAiLab" target="_blank" style="color:#007acc;text-decoration:none;">@CorotaAiLab</a>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -179,7 +259,6 @@
   <script>
     const meshSizeLat = 0.00525;
     const meshSizeLng = 0.00785;
-
     const map = L.map("map", { zoomControl: false }).setView([39.72, 140.10], 9);
     L.control.zoom({ position: 'topright' }).addTo(map);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -192,10 +271,9 @@
     let layerGroup = L.layerGroup().addTo(map);
 
     function getColor(risk) {
-      const t = Math.min(Math.max((risk - 0.80) / 0.20, 0), 1);
-      const r = 255;
-      const g = Math.round(255 * (1 - t));
-      return `rgba(${r}, ${g}, 0, 0.6)`;
+      if (risk >= 0.95) return 'rgba(255,0,0,0.7)';
+      if (risk >= 0.7) return 'rgba(255,165,0,0.7)';
+      return 'rgba(255,255,0,0.7)';
     }
 
     function formatTimeLabel(hourInt) {
@@ -212,15 +290,14 @@
         const lat = parseFloat(row.lat);
         const lng = parseFloat(row.lng);
         const risk = parseFloat(row[rawKey] || 0);
-        if (risk < 0.7) return;
+        if (risk < 0.5) return;
 
         const halfLat = (meshSizeLat * 0.8) / 2;
         const halfLng = (meshSizeLng * 0.8) / 2;
         const bounds = [[lat - halfLat, lng - halfLng], [lat + halfLat, lng + halfLng]];
-
         const rect = L.rectangle(bounds, {
           color: 'none', weight: 0, fillColor: getColor(risk), fillOpacity: 1
-        }).bindPopup(`${risk >= 0.95 ? '高リスク' : '中リスク'}`);
+        }).bindPopup(`${risk >= 0.95 ? '危険（高リスク）' : risk >= 0.7 ? '警戒' : '注意'}<br>リスク値: ${risk.toFixed(2)}`);
         rect.addTo(layerGroup);
       });
     }
@@ -246,9 +323,20 @@
       return date.toLocaleDateString('ja-JP', options);
     }
 
-    function updateSelectedDateText(offset) {
-      document.getElementById("selectedDateText").textContent = `表示日：${getReadableDateStr(offset)}`;
-    }
+    const dateSelect = document.getElementById("dateSelect");
+    const todayStr = getTodayDateStr();
+    const tomorrowStr = getTodayDateStr(1);
+    const todayLabel = getReadableDateStr(0);
+    const tomorrowLabel = getReadableDateStr(1);
+
+    dateSelect.innerHTML = `
+      <option value="${todayStr}" data-offset="0">${todayLabel}</option>
+      <option value="${tomorrowStr}" data-offset="1">${tomorrowLabel}</option>
+    `;
+
+    dateSelect.addEventListener("change", (e) => {
+      loadCsvForDate(e.target.value, e.target.selectedIndex);
+    });
 
     function loadCsvForDate(dateStr, offset = 0) {
       const filename = `risk_data.csv?d=${dateStr}&v=${Date.now()}`;
@@ -264,38 +352,31 @@
               rawHeaders = allHeaders.filter(h => !['id', 'lat', 'lng', 'date'].includes(h));
               times = rawHeaders.map(h => formatTimeLabel(parseInt(h)));
 
-              const select = document.getElementById("timeSelect");
-              select.innerHTML = "";
+              const timeSelect = document.getElementById("timeSelect");
+              timeSelect.innerHTML = "";
               times.forEach((label, i) => {
                 const option = document.createElement("option");
                 option.value = i.toString();
                 option.textContent = label;
-                select.appendChild(option);
+                timeSelect.appendChild(option);
               });
 
+              // 初期は現在時刻に最も近い時間帯を選択
               const currentHour = new Date().getHours();
-              select.value = currentHour.toString();
-              drawPolygons(parseInt(select.value));
-              updateSelectedDateText(offset);
+              let nearest = 0, minDiff = 24;
+              times.forEach((label, i) => {
+                const hour = parseInt(label);
+                const diff = Math.abs(currentHour - hour);
+                if (diff < minDiff) { minDiff = diff; nearest = i; }
+              });
+              timeSelect.value = nearest.toString();
+              drawPolygons(parseInt(timeSelect.value));
             }
           });
         });
     }
 
-    const dateSelect = document.getElementById("dateSelect");
-    const todayStr = getTodayDateStr();
-    const tomorrowStr = getTodayDateStr(1);
-
-    dateSelect.innerHTML = `
-      <option value="${todayStr}" data-offset="0">今日</option>
-      <option value="${tomorrowStr}" data-offset="1">明日</option>
-    `;
-
-    dateSelect.addEventListener("change", (e) => {
-      const offset = parseInt(e.target.selectedOptions[0].dataset.offset);
-      loadCsvForDate(e.target.value, offset);
-    });
-
+    // 初期表示
     loadCsvForDate(todayStr, 0);
 
     if (navigator.geolocation) {
