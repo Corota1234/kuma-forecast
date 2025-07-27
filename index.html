@@ -67,8 +67,8 @@
 
     #map { 
       flex: 0 0 auto;
-      height: 75vh;
-      min-height: 480px;
+      height: 60vh;
+      min-height: 380px;
       margin: 0 0 1rem 0; 
       border-top: 1px solid #ddd; 
       border-bottom: 1px solid #ddd;
@@ -170,8 +170,8 @@
     }
     @media (max-width: 700px) {
       #map {
-        height: 80vh;
-        min-height: 80vh;
+        height: 60vh;
+        min-height: 60vh;
         margin: 0 0 1rem 0;
         width: 100vw;
         max-width: 100vw;
@@ -246,9 +246,15 @@
       <span style="background: rgba(255,165,0,0.7);"></span>警戒
     </div>
     <div class="legend-item">
-      <span style="background: rgba(255,255,0,0.7);"></span>注意
+      <span style="background: rgba(255,255,0,0.7);"></span>要注意
+    </div>
+    <div style="font-size: 0.9rem; color: #555; margin-top: 0.5rem;">
+      ※ 熊出没リスクは常に存在します。
+      <br>色が薄い＝リスクが低いという意味であり、注意が必要です。
     </div>
   </div>
+
+  
 
   <div id="note" class="container">
     <strong>熊に遭遇しないためのポイント</strong>
@@ -334,7 +340,7 @@
         const bounds = [[lat - halfLat, lng - halfLng], [lat + halfLat, lng + halfLng]];
         const rect = L.rectangle(bounds, {
           color: 'none', weight: 0, fillColor: getColor(risk), fillOpacity: 1
-        }).bindPopup(`${risk >= 0.95 ? '危険（高リスク）' : risk >= 0.7 ? '警戒' : '注意'}<br>リスク値: ${risk.toFixed(2)}`);
+        }).bindPopup(`${risk >= 0.95 ? '危険（高リスク）' : risk >= 0.7 ? '警戒' : '要注意'}<br>リスク値: ${risk.toFixed(2)}`);
         rect.addTo(layerGroup);
       });
     }
