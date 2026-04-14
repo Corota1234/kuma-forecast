@@ -128,18 +128,14 @@
       margin-right: 2px;
     }
     #note {
-      background: #fffbe8;
+      background: #fff;
       color: #222;
       padding: 0.9rem 1.2rem;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(200,180,0,0.07);
+      border-left: 4px solid #007acc;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
       font-size: 1.05rem;
       line-height: 1.7;
-      margin-bottom: 0.7rem;
-    }
-    #note strong {
-      color: #d22;
-      font-size: 1.08em;
     }
     #manual-link {
       margin-top: 0.4rem;
@@ -156,8 +152,9 @@
     #caution {
       background: #fff;
       padding: 0.8rem 1.2rem;
-      border-radius: 9px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #007acc;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
       font-size: 0.97rem;
       color: #666;
     }
@@ -195,7 +192,7 @@
         padding: 0.7rem 0.7rem;
         font-size: 0.89rem;
         line-height: 1.5;
-        border-radius: 8px;
+        border-radius: 0 8px 8px 0;
         margin: 0.6rem auto;
         max-width: 99vw;
       }
@@ -221,16 +218,13 @@
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      max-width: 700px;
-      margin: 1rem auto 0.5rem auto;
-      padding: 0 1rem;
     }
     .promo-heading {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: bold;
       color: #fff;
       background: #007acc;
-      margin: 0 0 0 0;
+      margin: 0;
       padding: 0.55rem 1rem;
       border-radius: 8px 8px 0 0;
     }
@@ -265,12 +259,6 @@
     .promo-card .promo-sub {
       font-size: 0.9rem;
       color: #555;
-    }
-    @media (max-width: 700px) {
-      .promo-section {
-        max-width: 99vw;
-        padding: 0 0.5rem;
-      }
     }
   </style>
 </head>
@@ -312,38 +300,42 @@
 
   
 
-  <div id="note" class="container">
-    <strong>熊に遭遇しないためのポイント</strong>
-    <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
-      <li>早朝・夕方の山林や藪には近づかない</li>
-      <li>鈴・ラジオなど音を出し、熊に人の存在を知らせる</li>
-      <li>生ゴミや果物など、熊を誘引する物を屋外に放置しない</li>
-      <li>熊を見かけたら速やかにその場を離れ、自治体または警察へ通報</li>
-    </ul>
-    <div id="manual-link">
-      <a href="https://www.pref.akita.lg.jp/pages/archive/23295" target="_blank">秋田県：ツキノワグマ出没対応マニュアル</a>
-      <a href="https://www.pref.yamagata.jp/050011/kurashi/shizen/seibutsu/about_kuma/kuma_yamagata_top.html" target="_blank">山形県：ツキノワグマ出没・対応情報</a>
-      <a href="https://www.pref.miyagi.jp/soshiki/sizenhogo/r7kuma.html" target="_blank">宮城県：令和7年度クマ目撃等情報</a>
+  <div class="promo-section container">
+    <h2 class="promo-heading">熊に遭遇しないためのポイント</h2>
+    <div id="note">
+      <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
+        <li>早朝・夕方の山林や藪には近づかない</li>
+        <li>鈴・ラジオなど音を出し、熊に人の存在を知らせる</li>
+        <li>生ゴミや果物など、熊を誘引する物を屋外に放置しない</li>
+        <li>熊を見かけたら速やかにその場を離れ、自治体または警察へ通報</li>
+      </ul>
+      <div id="manual-link">
+        <a href="https://www.pref.akita.lg.jp/pages/archive/23295" target="_blank">秋田県：ツキノワグマ出没対応マニュアル</a>
+        <a href="https://www.pref.yamagata.jp/050011/kurashi/shizen/seibutsu/about_kuma/kuma_yamagata_top.html" target="_blank">山形県：ツキノワグマ出没・対応情報</a>
+        <a href="https://www.pref.miyagi.jp/soshiki/sizenhogo/r7kuma.html" target="_blank">宮城県：令和7年度クマ目撃等情報</a>
+      </div>
     </div>
   </div>
 
-  <div id="caution" class="container">
-    <strong>⚠ ご利用にあたって</strong>
-    <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
-      <li>本システムはAI予測情報であり、熊出没を保証するものではありません。</li>
-      <li>ご利用による損害等について一切責任を負いかねます。</li>
-      <div>
-        <br>本サービスについては下記までお問い合わせください。
-        <br>Corota AI Lab.【秋田県にかほ市】
-        <br>corota.ai.lab@gmail.com
-        <br><a href="https://x.com/CorotaAiLab" target="_blank" style="color:#007acc;text-decoration:none;">@CorotaAiLab</a>
-      </div>
-    </ul>
+  <div class="promo-section container">
+    <h2 class="promo-heading">⚠ ご利用にあたって</h2>
+    <div id="caution">
+      <ul style="margin:0.4em 0 0.4em 1.2em; padding:0; line-height:1.6;">
+        <li>本システムはAI予測情報であり、熊出没を保証するものではありません。</li>
+        <li>ご利用による損害等について一切責任を負いかねます。</li>
+        <div>
+          <br>本サービスについては下記までお問い合わせください。
+          <br>Corota AI Lab.【秋田県にかほ市】
+          <br>corota.ai.lab@gmail.com
+          <br><a href="https://x.com/CorotaAiLab" target="_blank" style="color:#007acc;text-decoration:none;">@CorotaAiLab</a>
+        </div>
+      </ul>
+    </div>
   </div>
 
 
 
-  <div class="promo-section">
+  <div class="promo-section container">
     <h2 class="promo-heading">AI開発やプログラミング教室に興味のある方へ</h2>
     <div class="promo-card">
       <p>くま予報のような予測モデルの開発も、オンラインプログラミング教室<br>
