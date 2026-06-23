@@ -26,14 +26,10 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-10YPM4TSZ2');
   </script>
 
-    <!-- ▼ 所有権確認用metaタグ（AdSense申請画面で表示されるものをコピペ！） -->
   <meta name="google-adsense-account" content="ca-pub-9684399623837907">
-
-  <!-- ▼ AdSense広告のスクリプト -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9684399623837907"
      crossorigin="anonymous"></script>
 
@@ -51,13 +47,8 @@
       display: flex; justify-content: space-between; align-items: center;
       z-index: 1000;
     }
-    .title {
-      display: flex; align-items: center; min-width: 0;
-    }
-    .logo-img {
-      width: 36px; height: 36px; vertical-align: middle; margin-right: 0.4em;
-      flex-shrink: 0;
-    }
+    .title { display: flex; align-items: center; min-width: 0; }
+    .logo-img { width: 36px; height: 36px; vertical-align: middle; margin-right: 0.4em; flex-shrink: 0; }
     .title-long { display: inline; }
     .title-short { display: none; }
 
@@ -65,19 +56,18 @@
     nav a { color: #007acc; text-decoration: none; font-weight: bold; }
     nav a:hover { text-decoration: underline; }
 
-    #map { 
+    #map {
       flex: 0 0 auto;
       height: 60vh;
       min-height: 380px;
-      margin: 0 0 1rem 0; 
-      border-top: 1px solid #ddd; 
+      margin: 0 0 1rem 0;
+      border-top: 1px solid #ddd;
       border-bottom: 1px solid #ddd;
       z-index: 0;
       width: 100vw;
       max-width: 100vw;
     }
 
-    /* ▼ 共通幅クラス */
     .container {
       width: 100%;
       max-width: 700px;
@@ -90,7 +80,7 @@
       gap: 1.2rem;
       align-items: center;
       justify-content: center;
-      padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+      padding: 0.8rem 1.2rem;
       font-size: 1rem;
       background: #fff;
       border-radius: 10px;
@@ -105,6 +95,7 @@
       background: #fff;
       min-width: 180px;
     }
+
     #legend {
       background: #fff;
       padding: 0.7rem 1.2rem;
@@ -115,18 +106,13 @@
       justify-content: center;
       align-items: center;
       font-size: 1rem;
+      flex-wrap: wrap;
     }
-    .legend-item {
-      display: flex; align-items: center; gap: 0.5em;
-      font-size: 1rem;
-    }
+    .legend-item { display: flex; align-items: center; gap: 0.5em; font-size: 1rem; }
     .legend-item span {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-      margin-right: 2px;
+      display: inline-block; width: 18px; height: 18px; border-radius: 4px; margin-right: 2px;
     }
+
     #note {
       background: #fff;
       color: #222;
@@ -144,11 +130,8 @@
       flex-wrap: wrap;
       gap: 1.2em;
     }
-    #manual-link a {
-      text-decoration: underline;
-      color: #1976d2;
-      margin-right: 1em;
-    }
+    #manual-link a { text-decoration: underline; color: #1976d2; margin-right: 1em; }
+
     #caution {
       background: #fff;
       padding: 0.8rem 1.2rem;
@@ -158,6 +141,7 @@
       font-size: 0.97rem;
       color: #666;
     }
+
     footer {
       padding: 1.2rem 1.2rem 1.7rem 1.2rem;
       font-size: 0.93rem;
@@ -165,60 +149,8 @@
       background: #f4f4f4;
       color: #777;
     }
-    @media (max-width: 700px) {
-      #map {
-        height: 60vh;
-        min-height: 60vh;
-        margin: 0 0 1rem 0;
-        width: 100vw;
-        max-width: 100vw;
-      }
-      .container { max-width: 99vw; font-size: 1rem; }
-      header { font-size: 1.1rem; padding: 0.5rem 0.7rem; }
-      .logo-img { width: 28px !important; height: 28px !important; margin-right: 0.2em !important;}
-      .title {
-        font-size: 1em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 70vw;
-        min-width: 0;
-      }
-      .title-long { display: none; }
-      .title-short { display: inline; }
-      nav { gap: 0.5em; font-size: 0.97em; }
-      select { min-width: 120px;}
-      #note, #caution {
-        padding: 0.7rem 0.7rem;
-        font-size: 0.89rem;
-        line-height: 1.5;
-        border-radius: 0 8px 8px 0;
-        margin: 0.6rem auto;
-        max-width: 99vw;
-      }
-      #note strong {
-        font-size: 1em;
-        display: block;
-        margin-bottom: 0.1em;
-      }
-      #manual-link {
-        display: block;
-        margin-top: 0.5em;
-        gap: 0.4em;
-      }
-      #manual-link a {
-        display: block;
-        margin-bottom: 0.2em;
-        font-size: 0.98em;
-        margin-right: 0;
-      }
-    }
 
-.promo-section {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
+    .promo-section { display: flex; flex-direction: column; gap: 0.8rem; }
     .promo-heading {
       font-size: 1.05rem;
       font-weight: bold;
@@ -238,9 +170,7 @@
       line-height: 1.7;
       color: #222;
     }
-    .promo-card p {
-      margin: 0 0 0.5em 0;
-    }
+    .promo-card p { margin: 0 0 0.5em 0; }
     .promo-card a.promo-cta {
       display: inline-block;
       margin-top: 0.3em;
@@ -253,12 +183,164 @@
       font-weight: bold;
       transition: background 0.15s;
     }
-    .promo-card a.promo-cta:hover {
-      background: #005fa3;
+    .promo-card a.promo-cta:hover { background: #005fa3; }
+    .promo-card .promo-sub { font-size: 0.9rem; color: #555; }
+
+    /* ── 検索コントロール ── */
+    .leaflet-search-control {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      overflow: visible;
+      min-width: 240px;
+      max-width: 320px;
     }
-    .promo-card .promo-sub {
-      font-size: 0.9rem;
-      color: #555;
+    .search-box {
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.95rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .search-box button {
+      border: none;
+      background: #007acc;
+      color: #fff;
+      padding: 0.55rem 0.8rem;
+      cursor: pointer;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+    .search-box button:hover { background: #005fa3; }
+    #searchResults {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 9999;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .search-result-item {
+      padding: 0.45rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.88rem;
+      border-top: 1px solid #eee;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #222;
+    }
+    .search-result-item:hover { background: #f0f8ff; }
+    .search-no-result { padding: 0.45rem 0.8rem; font-size: 0.88rem; color: #999; }
+
+    /* ── ランキングパネル ── */
+    #rankingPanel {
+      background: #fff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .ranking-item:hover { background: #f5f9ff; }
+    .ranking-item:last-child { border-bottom: none; }
+    .rank { font-weight: bold; color: #888; min-width: 2.2rem; font-size: 0.9rem; }
+    .rank-1 { color: #c8960c; }
+    .rank-2 { color: #7a7a7a; }
+    .rank-3 { color: #9e5a2b; }
+    .risk-badge {
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: #fff;
+      padding: 0.15em 0.6em;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .location-name {
+      flex: 1;
+      font-size: 0.95rem;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .risk-val {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: #777;
+      min-width: 2.5rem;
+      text-align: right;
+    }
+    .ranking-loading {
+      padding: 1rem;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    /* ── 出没情報パネル ── */
+    #sightingPanel {
+      background: #fff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .sighting-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sighting-item:hover { background: #fff8f0; }
+    .sighting-item:last-child { border-bottom: none; }
+    .sighting-date { font-size: 0.83rem; color: #999; white-space: nowrap; min-width: 3.5rem; padding-top: 0.1em; }
+    .sighting-body { flex: 1; }
+    .sighting-location { font-weight: bold; font-size: 0.95rem; color: #333; }
+    .sighting-note { font-size: 0.84rem; color: #888; margin-top: 0.1em; }
+
+    .panel-heading-sub {
+      font-size: 0.85em;
+      font-weight: normal;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 700px) {
+      #map { height: 60vh; min-height: 60vh; margin: 0 0 1rem 0; width: 100vw; max-width: 100vw; }
+      .container { max-width: 99vw; font-size: 1rem; }
+      header { font-size: 1.1rem; padding: 0.5rem 0.7rem; }
+      .logo-img { width: 28px !important; height: 28px !important; margin-right: 0.2em !important; }
+      .title { font-size: 1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70vw; min-width: 0; }
+      .title-long { display: none; }
+      .title-short { display: inline; }
+      nav { gap: 0.5em; font-size: 0.97em; }
+      select { min-width: 120px; }
+      #note, #caution { padding: 0.7rem 0.7rem; font-size: 0.89rem; line-height: 1.5; border-radius: 0 8px 8px 0; margin: 0.6rem auto; max-width: 99vw; }
+      #note strong { font-size: 1em; display: block; margin-bottom: 0.1em; }
+      #manual-link { display: block; margin-top: 0.5em; gap: 0.4em; }
+      #manual-link a { display: block; margin-bottom: 0.2em; font-size: 0.98em; margin-right: 0; }
+      .leaflet-search-control { min-width: 180px; max-width: 220px; }
+      .search-box input { font-size: 0.88rem; }
     }
   </style>
 </head>
@@ -283,22 +365,29 @@
   </div>
 
   <div id="legend" class="container">
-    <div class="legend-item">
-      <span style="background: rgba(255,0,0,0.7);"></span>危険
-    </div>
-    <div class="legend-item">
-      <span style="background: rgba(255,165,0,0.7);"></span>警戒
-    </div>
-    <div class="legend-item">
-      <span style="background: rgba(255,255,0,0.7);"></span>要注意
-    </div>
-    <div style="font-size: 0.9rem; color: #555; margin-top: 0.5rem;">
-      ※ 熊出没リスクは常に存在します。
-      <br>色が薄い＝リスクが低いという意味であり、注意が必要です。
+    <div class="legend-item"><span style="background: rgba(255,0,0,0.7);"></span>危険</div>
+    <div class="legend-item"><span style="background: rgba(255,165,0,0.7);"></span>警戒</div>
+    <div class="legend-item"><span style="background: rgba(255,255,0,0.7);"></span>要注意</div>
+    <div style="font-size: 0.9rem; color: #555; width: 100%; text-align: center; margin-top: 0.3rem;">
+      ※ 熊出没リスクは常に存在します。色が薄い＝リスクが低いという意味であり、注意が必要です。
     </div>
   </div>
 
-  
+  <!-- 直近の出没情報（sightings.csvがある場合に表示） -->
+  <div class="promo-section container" id="sightingSection" style="display:none;">
+    <h2 class="promo-heading">🐾 直近の出没情報</h2>
+    <div id="sightingPanel">
+      <div id="sightingList" class="ranking-loading">読み込み中...</div>
+    </div>
+  </div>
+
+  <!-- 危険度ランキング -->
+  <div class="promo-section container" id="rankingSection" style="display:none;">
+    <h2 class="promo-heading">危険度ランキング <span class="panel-heading-sub" id="rankingTimeLabel"></span></h2>
+    <div id="rankingPanel">
+      <div id="rankingList" class="ranking-loading">読み込み中...</div>
+    </div>
+  </div>
 
   <div class="promo-section container">
     <h2 class="promo-heading">熊に遭遇しないためのポイント</h2>
@@ -333,8 +422,6 @@
     </div>
   </div>
 
-
-
   <div class="promo-section container">
     <h2 class="promo-heading">AI開発やプログラミング教室に興味のある方へ</h2>
     <div class="promo-card">
@@ -353,7 +440,7 @@
   </div>
 
   <footer>
-    <strong>運営：</strong>Corota AI Lab.　
+    <strong>運営：</strong>Corota AI Lab.
     <a href="https://x.com/CorotaAiLab" target="_blank" style="color:#007acc;text-decoration:none;">@CorotaAiLab</a>
   </footer>
 
@@ -372,11 +459,23 @@
     let times = [];
     let rawHeaders = [];
     let layerGroup = L.layerGroup().addTo(map);
+    let sightingLayer = L.layerGroup().addTo(map);
 
+    // ── 色・リスクラベル ──────────────────────────────────────
     function getColor(risk) {
       if (risk >= 0.95) return 'rgba(255,0,0,0.7)';
-      if (risk >= 0.7) return 'rgba(255,165,0,0.7)';
+      if (risk >= 0.7)  return 'rgba(255,165,0,0.7)';
       return 'rgba(255,255,0,0.7)';
+    }
+    function getRiskLabel(risk) {
+      if (risk >= 0.95) return '危険';
+      if (risk >= 0.7)  return '警戒';
+      return '要注意';
+    }
+    function getBadgeColor(risk) {
+      if (risk >= 0.95) return '#d32f2f';
+      if (risk >= 0.7)  return '#e65100';
+      return '#f9a825';
     }
 
     function formatTimeLabel(hourInt) {
@@ -384,114 +483,326 @@
       return String(hourInt).padStart(2, '0') + ":00";
     }
 
+    // ── マップ描画 ───────────────────────────────────────────
     function drawPolygons(timeIndex) {
       const rawKey = rawHeaders[timeIndex];
       if (!rawKey) return;
       layerGroup.clearLayers();
 
       data.forEach(row => {
-        const lat = parseFloat(row.lat);
-        const lng = parseFloat(row.lng);
+        const lat  = parseFloat(row.lat);
+        const lng  = parseFloat(row.lng);
         const risk = parseFloat(row[rawKey] || 0);
         if (risk < 0.5) return;
 
         const halfLat = (meshSizeLat * 0.8) / 2;
         const halfLng = (meshSizeLng * 0.8) / 2;
-        const bounds = [[lat - halfLat, lng - halfLng], [lat + halfLat, lng + halfLng]];
-        const rect = L.rectangle(bounds, {
+        const bounds  = [[lat - halfLat, lng - halfLng], [lat + halfLat, lng + halfLng]];
+        L.rectangle(bounds, {
           color: 'none', weight: 0, fillColor: getColor(risk), fillOpacity: 1
-        }).bindPopup(`${risk >= 0.95 ? '危険（高リスク）' : risk >= 0.7 ? '警戒' : '要注意'}<br>リスク値: ${risk.toFixed(2)}`);
-        rect.addTo(layerGroup);
+        })
+        .bindPopup(`${getRiskLabel(risk)}<br>リスク値: ${risk.toFixed(2)}`)
+        .addTo(layerGroup);
+      });
+
+      updateRanking(timeIndex);
+    }
+
+    // ── 逆ジオコーディング（Nominatim、キャッシュ付き、1req/s制限） ──
+    const geocodeCache = {};
+    let geocodeQueue = [];
+    let geocodeBusy = false;
+
+    function reverseGeocode(lat, lng) {
+      const key = `${lat.toFixed(3)},${lng.toFixed(3)}`;
+      if (geocodeCache[key]) return Promise.resolve(geocodeCache[key]);
+      return new Promise(resolve => {
+        geocodeQueue.push({ lat, lng, key, resolve });
+        if (!geocodeBusy) processGeocodeQueue();
       });
     }
 
-    document.getElementById("timeSelect").addEventListener("change", (e) => {
-      const timeIndex = parseInt(e.target.value);
-      if (!isNaN(timeIndex)) drawPolygons(timeIndex);
+    function processGeocodeQueue() {
+      if (geocodeQueue.length === 0) { geocodeBusy = false; return; }
+      geocodeBusy = true;
+      const { lat, lng, key, resolve } = geocodeQueue.shift();
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=14&accept-language=ja`)
+        .then(r => r.json())
+        .then(json => {
+          const a = json.address || {};
+          const city    = a.city || a.town || a.village || a.county || '';
+          const district = a.suburb || a.quarter || a.neighbourhood || a.hamlet || a.village_district || '';
+          const name = city && district ? `${city} ${district}` : city || district || a.state || '不明な地点';
+          geocodeCache[key] = name;
+          resolve(name);
+        })
+        .catch(() => { geocodeCache[key] = '不明な地点'; resolve('不明な地点'); })
+        .finally(() => { setTimeout(processGeocodeQueue, 1100); });
+    }
+
+    // ── 危険度ランキング ─────────────────────────────────────
+    // 2点間の距離（度）
+    function latLngDist(a, b) {
+      const dLat = a.lat - b.lat;
+      const dLng = (a.lng - b.lng) * Math.cos((a.lat + b.lat) / 2 * Math.PI / 180);
+      return Math.sqrt(dLat * dLat + dLng * dLng);
+    }
+
+    function updateRanking(timeIndex) {
+      const rawKey = rawHeaders[timeIndex];
+      if (!rawKey) return;
+
+      const label = formatTimeLabel(parseInt(rawKey));
+      document.getElementById('rankingTimeLabel').textContent = `（${label} 時点）`;
+
+      // リスク降順にソートして、近い地点（約10km以内 ≈ 0.09度）は1つに絞る
+      const DIST_THRESHOLD = 0.09;
+      const sorted = data
+        .map(row => ({
+          lat:  parseFloat(row.lat),
+          lng:  parseFloat(row.lng),
+          risk: parseFloat(row[rawKey] || 0)
+        }))
+        .filter(r => !isNaN(r.risk) && r.risk >= 0.5)
+        .sort((a, b) => b.risk - a.risk);
+
+      const ranked = [];
+      for (const candidate of sorted) {
+        const tooClose = ranked.some(sel => latLngDist(sel, candidate) < DIST_THRESHOLD);
+        if (!tooClose) ranked.push(candidate);
+        if (ranked.length >= 10) break;
+      }
+
+      if (ranked.length === 0) {
+        document.getElementById('rankingList').innerHTML =
+          '<div class="ranking-loading">表示できるデータがありません</div>';
+        return;
+      }
+
+      const listEl = document.getElementById('rankingList');
+      listEl.innerHTML = ranked.map((r, i) => `
+        <div class="ranking-item" onclick="map.setView([${r.lat}, ${r.lng}], 13)">
+          <span class="rank ${i < 3 ? 'rank-' + (i+1) : ''}">${i + 1}位</span>
+          <span class="location-name" id="rloc-${i}">取得中…</span>
+        </div>
+      `).join('');
+
+      ranked.forEach((r, i) => {
+        reverseGeocode(r.lat, r.lng).then(name => {
+          const el = document.getElementById(`rloc-${i}`);
+          if (el) el.textContent = name;
+        });
+      });
+    }
+
+    // ── 日付・時刻セレクト ───────────────────────────────────
+    document.getElementById("timeSelect").addEventListener("change", e => {
+      const idx = parseInt(e.target.value);
+      if (!isNaN(idx)) drawPolygons(idx);
     });
 
     function getTodayDateStr(offset = 0) {
-      const today = new Date();
-      today.setDate(today.getDate() + offset);
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      return `${yyyy}${mm}${dd}`;
+      const d = new Date();
+      d.setDate(d.getDate() + offset);
+      return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
     }
-
     function getReadableDateStr(offset = 0) {
-      const date = new Date();
-      date.setDate(date.getDate() + offset);
-      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
-      return date.toLocaleDateString('ja-JP', options);
+      const d = new Date();
+      d.setDate(d.getDate() + offset);
+      return d.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', weekday:'short' });
     }
 
     const dateSelect = document.getElementById("dateSelect");
-    const todayStr = getTodayDateStr();
+    const todayStr    = getTodayDateStr(0);
     const tomorrowStr = getTodayDateStr(1);
-    const todayLabel = getReadableDateStr(0);
-    const tomorrowLabel = getReadableDateStr(1);
-
     dateSelect.innerHTML = `
-      <option value="${todayStr}" data-offset="0">${todayLabel}</option>
-      <option value="${tomorrowStr}" data-offset="1">${tomorrowLabel}</option>
+      <option value="${todayStr}">${getReadableDateStr(0)}</option>
+      <option value="${tomorrowStr}">${getReadableDateStr(1)}</option>
     `;
+    dateSelect.addEventListener("change", e => loadCsvForDate(e.target.value));
 
-    dateSelect.addEventListener("change", (e) => {
-      loadCsvForDate(e.target.value, e.target.selectedIndex);
-    });
-
-    function loadCsvForDate(dateStr, offset = 0) {
-      const filename = `risk_data.csv?d=${dateStr}&v=${Date.now()}`;
-      fetch(filename)
-        .then(response => response.text())
+    function loadCsvForDate(dateStr) {
+      fetch(`risk_data.csv?d=${dateStr}&v=${Date.now()}`)
+        .then(r => r.text())
         .then(csvText => {
           Papa.parse(csvText, {
             header: true,
             skipEmptyLines: true,
-            complete: function(results) {
+            complete(results) {
               data = results.data.filter(row => row.date === dateStr);
               const allHeaders = results.meta.fields;
-              rawHeaders = allHeaders.filter(h => !['id', 'lat', 'lng', 'date'].includes(h));
+              rawHeaders = allHeaders.filter(h => !['id','lat','lng','date'].includes(h));
               times = rawHeaders.map(h => formatTimeLabel(parseInt(h)));
 
               const timeSelect = document.getElementById("timeSelect");
               timeSelect.innerHTML = "";
               times.forEach((label, i) => {
-                const option = document.createElement("option");
-                option.value = i.toString();
-                option.textContent = label;
-                timeSelect.appendChild(option);
+                const opt = document.createElement("option");
+                opt.value = i; opt.textContent = label;
+                timeSelect.appendChild(opt);
               });
 
-              // 初期は現在時刻に最も近い時間帯を選択
               const currentHour = new Date().getHours();
               let nearest = 0, minDiff = 24;
               times.forEach((label, i) => {
-                const hour = parseInt(label);
-                const diff = Math.abs(currentHour - hour);
+                const diff = Math.abs(currentHour - parseInt(label));
                 if (diff < minDiff) { minDiff = diff; nearest = i; }
               });
-              timeSelect.value = nearest.toString();
-              drawPolygons(parseInt(timeSelect.value));
+              timeSelect.value = nearest;
+              drawPolygons(nearest);
             }
           });
         });
     }
 
-    // 初期表示
-    loadCsvForDate(todayStr, 0);
-
+    // ── 現在地 ──────────────────────────────────────────────
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
+        const { latitude: lat, longitude: lng } = pos.coords;
         L.marker([lat, lng], { title: "あなたの現在地" })
           .addTo(map)
           .bindPopup("📍 あなたの現在地").openPopup();
         map.setView([lat, lng], 11);
       });
     }
+
+    // ── 検索コントロール（Leafletカスタムコントロール） ────────
+    const SearchControl = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd() {
+        const container = L.DomUtil.create('div', 'leaflet-search-control');
+        container.style.position = 'relative';
+        container.innerHTML = `
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="地名・スポットを検索" autocomplete="off" />
+            <button id="searchBtn">🔍</button>
+          </div>
+          <div id="searchResults"></div>
+        `;
+        L.DomEvent.disableClickPropagation(container);
+        L.DomEvent.disableScrollPropagation(container);
+        return container;
+      }
+    });
+    new SearchControl().addTo(map);
+
+    let searchMarker = null;
+
+    function doSearch() {
+      const q = document.getElementById('searchInput').value.trim();
+      if (!q) return;
+      const resultsEl = document.getElementById('searchResults');
+      resultsEl.innerHTML = '<div class="search-no-result">検索中...</div>';
+
+      fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=5&countrycodes=jp&accept-language=ja`)
+        .then(r => r.json())
+        .then(items => {
+          if (!items.length) {
+            resultsEl.innerHTML = '<div class="search-no-result">見つかりませんでした</div>';
+            return;
+          }
+          resultsEl.innerHTML = items.map((item, i) =>
+            `<div class="search-result-item" data-idx="${i}">${item.display_name.split(',').slice(0, 3).join(', ')}</div>`
+          ).join('');
+          resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
+            el.addEventListener('click', () => goToPlace(parseFloat(items[i].lat), parseFloat(items[i].lon), items[i].display_name));
+          });
+        })
+        .catch(() => {
+          resultsEl.innerHTML = '<div class="search-no-result">検索に失敗しました</div>';
+        });
+    }
+
+    function goToPlace(lat, lon, name) {
+      if (searchMarker) map.removeLayer(searchMarker);
+      searchMarker = L.marker([lat, lon]).addTo(map)
+        .bindPopup(`📍 ${name.split(',').slice(0, 2).join(', ')}`).openPopup();
+      map.setView([lat, lon], 13);
+      document.getElementById('searchResults').innerHTML = '';
+      document.getElementById('searchInput').value = name.split(',')[0];
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.leaflet-search-control')) {
+        const r = document.getElementById('searchResults');
+        if (r) r.innerHTML = '';
+      }
+    });
+
+    // searchボタン・Enterキー
+    document.addEventListener('DOMContentLoaded', () => {});
+    map.whenReady(() => {
+      const btn = document.getElementById('searchBtn');
+      const inp = document.getElementById('searchInput');
+      if (btn) btn.addEventListener('click', doSearch);
+      if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    });
+
+    // ── 出没情報（sightings.csv） ────────────────────────────
+    function formatSightingDate(dateStr) {
+      // YYYYMMDD → M/D
+      if (!dateStr || dateStr.length !== 8) return dateStr;
+      return `${parseInt(dateStr.slice(4, 6))}/${parseInt(dateStr.slice(6, 8))}`;
+    }
+
+    function loadSightings() {
+      fetch(`sightings.csv?v=${Date.now()}`)
+        .then(r => {
+          if (!r.ok) throw new Error('no file');
+          return r.text();
+        })
+        .then(csvText => {
+          Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete(results) {
+              const rows = results.data.filter(r => r.lat && r.lng);
+              if (!rows.length) return;
+
+              // 日付降順にソート（直近30件まで）
+              rows.sort((a, b) => b.date - a.date);
+              const recent = rows.slice(0, 30);
+
+              // マップにマーカー追加
+              sightingLayer.clearLayers();
+              recent.forEach(r => {
+                const lat = parseFloat(r.lat);
+                const lng = parseFloat(r.lng);
+                L.circleMarker([lat, lng], {
+                  radius: 9,
+                  color: '#ff6600',
+                  fillColor: '#ff8800',
+                  fillOpacity: 0.85,
+                  weight: 2
+                })
+                .bindPopup(`🐾 <strong>${r.location || '不明'}</strong><br>${formatSightingDate(r.date)}${r.note ? '<br>' + r.note : ''}`)
+                .addTo(sightingLayer);
+              });
+
+              // パネル表示
+              const section = document.getElementById('sightingSection');
+              section.style.display = '';
+              const listEl = document.getElementById('sightingList');
+              listEl.innerHTML = recent.map(r => `
+                <div class="sighting-item" onclick="map.setView([${parseFloat(r.lat)}, ${parseFloat(r.lng)}], 13)">
+                  <span class="sighting-date">${formatSightingDate(r.date)}</span>
+                  <div class="sighting-body">
+                    <div class="sighting-location">${r.location || '不明'}</div>
+                    ${r.note ? `<div class="sighting-note">${r.note}</div>` : ''}
+                  </div>
+                </div>
+              `).join('');
+            }
+          });
+        })
+        .catch(() => {
+          // sightings.csv がなければ何もしない
+        });
+    }
+
+    // ── 初期化 ──────────────────────────────────────────────
+    loadCsvForDate(todayStr);
+    loadSightings();
   </script>
 </body>
 </html>
