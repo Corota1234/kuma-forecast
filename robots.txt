@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kuma-forecast.corota-ai-lab.com/sitemap.xml
